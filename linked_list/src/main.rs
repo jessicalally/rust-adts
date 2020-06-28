@@ -5,7 +5,7 @@ enum LinkedList<T> {
     Cons(T, Box<LinkedList<T>>),
 }
 
-impl <T> LinkedList<T> {
+impl <T : PartialOrd> LinkedList<T> {
     fn new() -> Self {
         LinkedList::Nil
     }
@@ -20,6 +20,19 @@ impl <T> LinkedList<T> {
             LinkedList::Cons(item_val, tail) => LinkedList::Cons(item_val, Box::new(tail.append(value))),
         }
     }
+
+    fn contains(&self, value : T) -> bool {
+        match self {
+            LinkedList::Nil => false,
+            LinkedList::Cons(other, tail) => {
+                if *other == value {
+                    true
+                } else {
+                    tail.contains(value)
+                }
+            }
+        }
+    }
 }
 
 fn main() {
@@ -29,4 +42,7 @@ fn main() {
     let list = list.append(12);
 
     println!("{:#?}", list);
+
+    println!("The list contains 13: {}", list.contains(13));
+    println!("The list contains 12: {}", list.contains(12));
 }
