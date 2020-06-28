@@ -21,6 +21,19 @@ impl <T : PartialOrd> LinkedList<T> {
         }
     }
 
+    fn remove(self, value : T) -> LinkedList<T> {
+        match self {
+            LinkedList::Nil => LinkedList::Nil,
+            LinkedList::Cons(item_val, tail) => {
+                if item_val == value {
+                    *tail
+                } else {
+                    LinkedList::Cons(item_val, Box::new(tail.remove(value)))
+                }
+            }
+        }
+    }
+
     fn contains(&self, value : T) -> bool {
         match self {
             LinkedList::Nil => false,
@@ -41,8 +54,11 @@ fn main() {
     let list = list.prepend(11);
     let list = list.append(12);
 
-    println!("{:#?}", list);
-
+    println!("{:?}", list);
     println!("The list contains 13: {}", list.contains(13));
+    println!("The list contains 12: {}", list.contains(12));
+
+    let list = list.remove(12);
+    
     println!("The list contains 12: {}", list.contains(12));
 }
