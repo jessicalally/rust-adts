@@ -1,6 +1,6 @@
 # rust-adts
 
-A collection of abstract data types written in Rust.
+A learning project for Rust, creating a collection of abstract data types.
 
 ## ADTs Implemented
 * u32 BST
