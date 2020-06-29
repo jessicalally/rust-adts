@@ -47,4 +47,3 @@ impl <T : PartialOrd> LinkedList<T> {
         }
     }
 }
-
