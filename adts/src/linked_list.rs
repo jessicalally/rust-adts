@@ -1,5 +1,6 @@
 #[derive(Debug)]
 
+// Implementation of an immutable LinkedList
 pub enum LinkedList<T> {
     Nil,
     Cons(T, Box<LinkedList<T>>),
@@ -18,6 +19,13 @@ impl <T : PartialOrd> LinkedList<T> {
         match self {
             LinkedList::Nil => LinkedList::Cons(value, Box::new(LinkedList::Nil)),
             LinkedList::Cons(item_val, tail) => LinkedList::Cons(item_val, Box::new(tail.append(value))),
+        }
+    }
+    
+    pub fn pop(self) -> (Result<T, String>, LinkedList<T>) {
+        match self {
+            LinkedList::Nil => (Err(String::from("list is empty")), LinkedList::Nil),
+            LinkedList::Cons(val, tail) => (Ok(val), *tail)
         }
     }
 
